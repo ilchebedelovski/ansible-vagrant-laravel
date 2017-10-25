@@ -1,0 +1,4 @@
+# MySQL credentials
+laravel_username: "lavavel"
+laravel_password: "laravel"
+laravel_database: "laravel"
