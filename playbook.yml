@@ -4,3 +4,6 @@
   become_user: root
   roles:
    - webserver
+   - php
+   - database
+   - laravel

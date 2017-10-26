@@ -1,2 +1,3 @@
 *.retry
 vagrant/.vagrant
+group_vars/all.yml

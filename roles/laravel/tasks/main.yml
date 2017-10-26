@@ -1,0 +1,34 @@
+- name: Downloading Composer
+  shell: curl -sS https://getcomposer.org/installer | php
+
+- name: Setting up composer
+  shell: sudo mv composer.phar /usr/local/bin/composer
+
+- name: Creating project
+  command: chdir=/var/www/html composer create-project laravel/laravel website --prefer-dist
+
+- name: Configuring apache
+  command: chgrp -R www-data /var/www/html/website
+  sudo: yes
+
+- name: Setting permitions
+  command: chmod -R 775 /var/www/html/website/storage
+  sudo: yes
+
+- name: Uploading laravel conf
+  copy:
+    src: laravel.conf
+    dest: /etc/apache2/sites-available/laravel.conf
+    mode: 0644
+
+- name: Enabling laravel conf
+  command: a2ensite laravel.conf
+  sudo: yes
+
+- name: Enabling rewrites
+  command: a2enmod rewrite
+  notify: 
+    - restart apache
+  sudo: yes
+
+
